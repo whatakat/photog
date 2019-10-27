@@ -1,6 +1,8 @@
-package com.bignerdranch.testphilosophyjava.homecontrol.enumerations;
+package com.bignerdranch.testphilosophyjava.homecontrol.enumerations.mail;
 
 import android.support.annotation.NonNull;
+
+import com.bignerdranch.testphilosophyjava.homecontrol.enumerations.Enums;
 
 import java.util.Iterator;
 
