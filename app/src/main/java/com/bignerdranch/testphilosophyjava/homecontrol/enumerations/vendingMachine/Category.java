@@ -2,11 +2,11 @@ package com.bignerdranch.testphilosophyjava.homecontrol.enumerations.vendingMach
 
 import java.util.EnumMap;
 
-public enum Category {
-    MONEY(NICKEL, DIME, QUARTER, DOLLAR),
+public enum Category {MONEY;
+    /*MONEY(NICKEL, DIME, QUARTER, DOLLAR),
     ITEM_SELECTION(TOOTHPASTE, CHIPS, SODA, SOAP),
     QUIT_TRANSACTION(ABORT_TRANSACTION),
-    SHUT_DOWN(STOP);
+    SHUT_DOWN(STOP);*/
     private Input[] values;
     Category(Input...types){values=types;}
     private static EnumMap<Input, Category> categories =
