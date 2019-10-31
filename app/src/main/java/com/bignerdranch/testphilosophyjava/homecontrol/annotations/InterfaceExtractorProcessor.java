@@ -1,4 +1,4 @@
 package com.bignerdranch.testphilosophyjava.homecontrol.annotations;
 
-public class InterfaceExtractorProcessor implements  {
+public class InterfaceExtractorProcessor implements Annot{
 }
