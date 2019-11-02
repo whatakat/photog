@@ -1,6 +1,7 @@
 package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution;
 
 import static com.bignerdranch.testphilosophyjava.homecontrol.print.Print.print;
+import static com.bignerdranch.testphilosophyjava.homecontrol.print.Print.printnb;
 
 public class LiftOff implements Runnable {
     protected int countDown = 10;
@@ -16,7 +17,7 @@ public class LiftOff implements Runnable {
     }
     public void run(){
         while (countDown-- >0){
-            print(status());
+            printnb(status());
             Thread.yield();
         }
     }
