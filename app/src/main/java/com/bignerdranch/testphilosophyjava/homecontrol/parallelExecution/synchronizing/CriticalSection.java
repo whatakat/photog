@@ -1,4 +1,4 @@
-package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.atomicClass;
+package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.synchronizing;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

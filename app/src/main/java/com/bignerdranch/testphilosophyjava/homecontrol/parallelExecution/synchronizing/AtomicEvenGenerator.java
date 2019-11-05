@@ -1,4 +1,4 @@
-package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.atomicClass;
+package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.synchronizing;
 
 import com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.EvenChecker;
 import com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.IntGenerator;

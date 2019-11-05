@@ -1,4 +1,4 @@
-package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.atomicClass;
+package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.synchronizing;
 
 import java.util.ArrayList;
 import java.util.Collections;

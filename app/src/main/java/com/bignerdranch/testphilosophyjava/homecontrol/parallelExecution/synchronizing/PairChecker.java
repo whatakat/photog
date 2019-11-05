@@ -1,4 +1,4 @@
-package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.atomicClass;
+package com.bignerdranch.testphilosophyjava.homecontrol.parallelExecution.synchronizing;
 
 public class PairChecker implements Runnable {
     private PairManager pm;
