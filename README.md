@@ -1,1 +1,1 @@
-# photog it is application PhotoGallery with searching photo from Flickr
+# beatBox application (Android programming for professionals)
