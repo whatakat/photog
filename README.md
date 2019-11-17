@@ -1,1 +1,1 @@
-# beatBox application (Android programming for professionals)
+# photoGallery application
