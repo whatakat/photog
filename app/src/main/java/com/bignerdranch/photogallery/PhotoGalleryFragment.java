@@ -42,7 +42,7 @@ public class PhotoGalleryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         setHasOptionsMenu(true);
-        new FetchItemTask().execute();
+        updateItems();
         Handler responseHandler = new Handler();
 
 
