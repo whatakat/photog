@@ -90,6 +90,7 @@ public class PhotoGalleryFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.d(TAG, "QueryTextSubmit: "+s);
+                QueryPreferences.setStoredQuery(getActivity(),s);
                 updateItems();
                 return true;
             }
