@@ -116,7 +116,8 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     private void updateItems(){
-        new FetchItemTask().execute();
+        String query = QueryPreferences.getStoredQuery(getActivity());
+        new FetchItemTask(query).execute();
     }
 
     @Override
@@ -172,13 +173,16 @@ public class PhotoGalleryFragment extends Fragment {
 
 
     private class FetchItemTask extends AsyncTask<Void,Void,List<GalleryItem>>{
+        private String mQuery;
+        public FetchItemTask(String query){
+            mQuery = query;
+        }
         @Override
         protected List<GalleryItem> doInBackground(Void... params) {
-           String query = "robot";
-           if (query==null){
+           if (mQuery==null){
                return new FlickrFetchr().fetchRecentPhotos();
            }else {
-               return new FlickrFetchr().searchPhotos(query);
+               return new FlickrFetchr().searchPhotos(mQuery);
            }
         }
 
