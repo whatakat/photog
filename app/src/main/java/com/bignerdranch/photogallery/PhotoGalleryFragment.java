@@ -103,6 +103,18 @@ public class PhotoGalleryFragment extends Fragment {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_item_clear:
+                QueryPreferences.setStoredQuery(getActivity(), null);
+                updateItems();
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void updateItems(){
         new FetchItemTask().execute();
     }
