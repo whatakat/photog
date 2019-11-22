@@ -21,7 +21,9 @@ public class PollService extends IntentService {
     private static final String TAG = "PollService";
     private static final long POLL_INTERNAL_MS = TimeUnit.MINUTES.toMillis(15);
     public static final String ACTION_SHOW_NOTIFICATION =
-            "com.bignerdranch.android.photogallery.SHOW_NOTIFICATION";
+            "com.bignerdranch.photogallery.SHOW_NOTIFICATION";
+    public static final String PERM_PRIVATE =
+            "com.bignerdranch.photogallery.PRIVATE";
 
     public static Intent newIntent(Context context){
         return new Intent(context, PollService.class);
