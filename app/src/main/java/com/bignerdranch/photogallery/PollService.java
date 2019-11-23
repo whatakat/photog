@@ -92,7 +92,7 @@ public class PollService extends IntentService {
     }
     private void showBackgroundNotification(int requestCode, Notification notification)
     {
-        Intent i = Intent(ACTION_SHOW_NOTIFICATION);
+        Intent i = new Intent(ACTION_SHOW_NOTIFICATION);
         i.putExtra(REQUEST_CODE, requestCode);
         i.putExtra(NOTIFICATION, notification);
         sendOrderedBroadcast(i,PERM_PRIVATE, null, null,
