@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PhotoPageActivity"/>
         <service android:name=".PollService"/>
         <receiver android:name=".StartupReceiver">
             <intent-filter>
