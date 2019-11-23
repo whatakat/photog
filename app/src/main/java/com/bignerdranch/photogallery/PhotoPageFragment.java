@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class PhotoPageFragment extends VisibleFragment {
     public static final String ARG_URI = "photo_page_url";
@@ -33,6 +34,9 @@ public class PhotoPageFragment extends VisibleFragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_page, container, false);
         mWebView = (WebView)v.findViewById(R.id.web_view);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.loadUrl(mUri.toString());
         return v;
     }
 }
