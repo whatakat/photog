@@ -1,5 +1,6 @@
 package com.bignerdranch.photogallery;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,7 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoGalleryFragment extends Fragment {
+public class PhotoGalleryFragment extends VisibleFragment {
     private static final String TAG = "PhotoGalleryFragment";
     private RecyclerView mPhotoRecyclerView;
     private List<GalleryItem> mItems = new ArrayList<>();
@@ -101,10 +102,41 @@ public class PhotoGalleryFragment extends Fragment {
                 return false;
             }
         });
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = QueryPreferences.getStoredQuery(getActivity());
+                searchView.setQuery(query, false);
+            }
+        });
+        MenuItem toggleItem = menu.findItem(R.id.menu_item_toggle_polling);
+        if (PollService.isServiceAlarmOn(getActivity())){
+            toggleItem.setTitle(R.string.stop_polling);
+        }else {
+            toggleItem.setTitle(R.string.start_polling);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_item_clear:
+                QueryPreferences.setStoredQuery(getActivity(), null);
+                updateItems();
+                return true;
+            case R.id.menu_item_toggle_polling:
+                boolean shouldStartAlarm = !PollService.isServiceAlarmOn(getActivity());
+                PollService.setServiceAlarm(getActivity(),shouldStartAlarm);
+                getActivity().invalidateOptionsMenu();
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateItems(){
-        new FetchItemTask().execute();
+        String query = QueryPreferences.getStoredQuery(getActivity());
+        new FetchItemTask(query).execute();
     }
 
     @Override
@@ -119,14 +151,26 @@ public class PhotoGalleryFragment extends Fragment {
             mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
         }
     }
-    private class PhotoHolder extends RecyclerView.ViewHolder{
+    private class PhotoHolder extends RecyclerView.ViewHolder
+    implements View.OnClickListener{
         private ImageView mItemImageView;
+        private GalleryItem mGalleryItem;
         public PhotoHolder(View itemView){
             super(itemView);
            mItemImageView=(ImageView)itemView.findViewById(R.id.item_image_view);
+           itemView.setOnClickListener(this);
         }
         public void bindDrawable(Drawable drawable){
             mItemImageView.setImageDrawable(drawable);
+        }
+        public void bindGalleryItem(GalleryItem galleryItem){
+            mGalleryItem = galleryItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent i = PhotoPageActivity.newIntent(getActivity(),mGalleryItem.getPhotoPageUri());
+            startActivity(i);
         }
     }
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder>{
@@ -146,6 +190,7 @@ public class PhotoGalleryFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull PhotoHolder photoHolder, int position) {
             GalleryItem galleryItem = mGalleryItems.get(position);
+            photoHolder.bindGalleryItem(galleryItem);
             Drawable placeholder = getResources().getDrawable(R.drawable.pic);
             photoHolder.bindDrawable(placeholder);
             mThumbnailDownloader.queueThumbnail(photoHolder, galleryItem.getUrl());
@@ -160,13 +205,16 @@ public class PhotoGalleryFragment extends Fragment {
 
 
     private class FetchItemTask extends AsyncTask<Void,Void,List<GalleryItem>>{
+        private String mQuery;
+        public FetchItemTask(String query){
+            mQuery = query;
+        }
         @Override
         protected List<GalleryItem> doInBackground(Void... params) {
-           String query = "robot";
-           if (query==null){
+           if (mQuery==null){
                return new FlickrFetchr().fetchRecentPhotos();
            }else {
-               return new FlickrFetchr().searchPhotos(query);
+               return new FlickrFetchr().searchPhotos(mQuery);
            }
         }
 
